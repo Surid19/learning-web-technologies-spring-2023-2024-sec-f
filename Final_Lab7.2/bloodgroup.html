@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Group</title>
+</head>
+<body>
+    <form id="bloodGroupForm" action="/bloodgroup.html" method="post">
+        <label for="bloodgroup">
+            Select your blood group: <br>
+
+            <select id="bloodgroup" name="bloodgroup" required>
+                <option value="" disabled selected>Select</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+        </label><br>
+
+        <button type="submit">Submit</button>
+
+        <div id="errorMessage" style="color: red;"></div>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("bloodGroupForm").addEventListener("submit", function(event) {
+                var bloodGroup = document.getElementById("bloodgroup").value;
+                if (bloodGroup === "") {
+                    var errorMessageElement = document.getElementById("errorMessage");
+                    errorMessageElement.innerHTML = "Please select your blood group.";
+                    event.preventDefault(); 
+                }
+            });
+        });
+    </script>
+</body>
+</html>

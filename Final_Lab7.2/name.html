@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Name</legend>
+        <form id="myForm" action="name.html" method="POST">
+            Name: <input type="text" id="name" name="name" required><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="result"></div>
+    </fieldset>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("myForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                var inputName = document.getElementById("name").value.trim();
+                var isValid = true;
+                var errorMessage = "";
+
+                if (inputName === "") {
+                    isValid = false;
+                    errorMessage += "Name cannot be empty.<br>";
+                }
+
+                var nameWords = inputName.split(" ");
+                if (nameWords.length < 2) {
+                    isValid = false;
+                    errorMessage += "Name must contain at least two words.<br>";
+                }
+
+                var regex = /^[a-zA-Z.-]+$/;
+                if (!regex.test(inputName)) {
+                    isValid = false;
+                    errorMessage += "Name can only contain letters, period, and dash.<br>";
+                }
+
+                var firstChar = inputName.charAt(0);
+                if (!/[a-zA-Z]/.test(firstChar)) {
+                    isValid = false;
+                    errorMessage += "Name must start with a letter.<br>";
+                }
+
+                var resultElement = document.getElementById("result");
+                if (isValid) {
+                    resultElement.innerHTML = "Name: " + inputName;
+                } else {
+                    resultElement.innerHTML = "Validation failed. Please correct the following errors:<br>" + errorMessage;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Email</legend>
+        <form id="emailForm" action="/email.html" method="POST">
+            Email: <input type="email" id="email" name="email" required><br>
+            <input type="submit">
+
+            <div id="errorMessage" style="color: red;"></div>
+        </form>
+    </fieldset>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("emailForm").addEventListener("submit", function(event) {
+                var emailInput = document.getElementById("email").value.trim();
+                var isValid = true;
+                var errorMessage = "";
+
+                if (emailInput === "") {
+                    isValid = false;
+                    errorMessage += "Email cannot be empty.<br>";
+                }
+
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput)) {
+                    isValid = false;
+                    errorMessage += "Please enter a valid email address.<br>";
+                }
+
+                var errorMessageElement = document.getElementById("errorMessage");
+                if (!isValid) {
+                    errorMessageElement.innerHTML = errorMessage;
+                    event.preventDefault(); 
+                } else {
+                    errorMessageElement.innerHTML = ""; 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
